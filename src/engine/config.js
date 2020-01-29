@@ -1,0 +1,33 @@
+
+export default {
+    Scenes:[
+        {
+            width:800,
+            height:600,
+            status:1,
+            Sections:[
+                {
+                    position:{x:0,y:0},
+                    size:{w:400,h:300},
+                },
+                {
+                    position:{x:400,y:0},
+                    size:{w:400,h:300},
+                },
+                {
+                    position:{x:0,y:300},
+                    size:{w:400,h:300},
+                },
+                {
+                    position:{x:400,y:300},
+                    size:{w:400,h:300},
+                }
+            ]
+        }
+    ],
+    Hero:{
+        position:{x:0,y:0},
+        size:{w:50,h:50},
+        img:"./src/images/hero.png"
+    }
+}
