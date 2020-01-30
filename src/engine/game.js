@@ -1,6 +1,7 @@
 
 import Hero from "../model/Hero.js";
 import Scene from "../map/Scene.js";
+import Enums from "@Enums";
 
 export default class Game{
     constructor(container, config){
@@ -12,7 +13,8 @@ export default class Game{
         this._scenes = [];
 
         this._currentScenes = null;
-
+        this._currentScenesConfig = {config:null,idx:-1};
+        
         this._config = config;
     }
 
@@ -21,36 +23,64 @@ export default class Game{
     }
 
     goNextScene(){
-        
+        let idx = this._currentScenes._index;
+        if(idx == this._scenes.length-1){
+            return;
+        }
+        let nextScene = this._scenes[idx+1];
+        nextScene.appendToParent(this._el);
+        this._currentScenes = nextScene;
+        this._hero.setToOriginPoint();
     }
 
-    getCurrentScene(){
-        let scene = null;
-        this._scenes.forEach(x=>{
-            if(x._status == 1){
-                scene = x;
-            }
-        })
-        this._currentScenes = scene;
+    goPrevScene(){
+        let idx = this._currentScenes._index;
+        if(idx == 0){
+            return;
+        }
+        let prevScene = this._scenes[idx-1];
+        prevScene.appendToParent(this._el);
+        this._currentScenes = prevScene;
+        this._hero.setToOriginPoint();
     }
     
     init(){
-        //初始化所有地图场景
+        //加载当前场景，异步加载其他场景的配置信息
         this._config.Scenes.forEach((x,idx) => {
-            let _scene = new Scene();
-            _scene.init(x,idx);
-            _scene.appendToParent(this._el);
-            this.addScene(_scene);
+            if(x.status == Enums.Scene.enabled){
+                this._currentScenesConfig = {config:x,idx:idx};
+            }
         });
+        this.asynLoadScenes();
 
         //初始化Hero
-        this._hero.init(this._config.Hero);
-        this._hero.appendToParent(this._el);
+        if(this._currentScenes){
+            this._hero.init(this._config.Hero);
+            this._hero.appendToParent(this._el);
+        }
+    }
 
-        //获取当前的地图场景索引
-        this.getCurrentScene();
-        this._hero.setRelativePosition(this._currentScenes._index);
-        debugger
+    asynLoadScenes(){
+        if(this._currentScenesConfig.config){
+            new Promise((resolve,reject)=>{
+                let _scene = new Scene();
+                _scene.init(this._currentScenesConfig.config,this._currentScenesConfig.idx);
+                this.addScene(_scene);
+                _scene.appendToParent(this._el);
+                this._currentScenes = _scene;
+                resolve();
+            }).then(x=>{
+                this._config.Scenes.forEach((x,idx) => {
+                    if(x.status == Enums.Scene.disenabled){
+                        let _scene = new Scene();
+                        _scene.init(x, idx);
+                        this.addScene(_scene);
+                    }
+                });
+            })
+        }else{
+            console.log("场景信息异常");
+        }
     }
 
     start(){

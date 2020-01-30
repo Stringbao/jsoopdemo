@@ -23,6 +23,29 @@ export default {
                     size:{w:400,h:300},
                 }
             ]
+        },
+        {
+            width:800,
+            height:600,
+            status:0,
+            Sections:[
+                {
+                    position:{x:0,y:0},
+                    size:{w:400,h:300},
+                },
+                {
+                    position:{x:400,y:0},
+                    size:{w:400,h:300},
+                },
+                {
+                    position:{x:0,y:300},
+                    size:{w:400,h:300},
+                },
+                {
+                    position:{x:400,y:300},
+                    size:{w:400,h:300},
+                }
+            ]
         }
     ],
     Hero:{

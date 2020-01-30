@@ -1,5 +1,6 @@
 
 import Section from "./Section.js";
+import Enums from "@Enums";
 
 export default class Scene{
     constructor(){
@@ -15,14 +16,14 @@ export default class Scene{
          * 0：未启用
          * 1：启用
          */
-        this._status = 0;
+        this._status = Enums.Scene.disenabled;
 
         this._el = $("<div></div>");
     }
 
     appendToParent(parent){
         this._el.css("width",this._size.w).css("height",this._size.h).attr("scene",true);
-        $(parent).append(this._el);
+        $(parent).html(this._el);
     }
 
     addSections(section){

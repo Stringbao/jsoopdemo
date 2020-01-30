@@ -5,7 +5,7 @@ export default class Hero extends CObject {
         super();
         this._type = 1;
         this._config = null;
-        this._el = $("<div style='position: absolute;border:1px solid blue'></div>");
+        this._el = $("<div style='position: absolute;'></div>");
     }
 
     move(){
@@ -23,8 +23,9 @@ export default class Hero extends CObject {
         $(parent).append(this._el);
     }
 
-    setRelativePosition(idx){
-        this._relativePosition = idx;
+    setToOriginPoint(){
+        this._position = {x:window._padding,y:window._padding};
+        this._el.css("top",this._position.y + window._padding).css("left",this._position.x + window._padding);
     }
 
     init(config){
