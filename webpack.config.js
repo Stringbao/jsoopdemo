@@ -68,7 +68,8 @@ let webpackConfig = {
         alias: {
            "@CObject": path.resolve(__dirname, "./src/core/CObject.js"),
            "@CObstacle": path.resolve(__dirname, "./src/core/CObstacle.js"),
-           "@Enums": path.resolve(__dirname, "./src/enum.js")
+           "@Enums": path.resolve(__dirname, "./src/enum.js"),
+           "@Tool": path.resolve(__dirname, "./src/util/tool.js"),
         }
     },
 };

@@ -5,22 +5,24 @@ export default {
             width:800,
             height:600,
             status:1,
-            Sections:[
+            Monsters:[
+
+            ],
+            Obstacles:[
                 {
-                    position:{x:0,y:0},
-                    size:{w:400,h:300},
+                    position:{x:100,y:100},
+                    size:{w:50,h:50},
+                    type:1
                 },
                 {
-                    position:{x:400,y:0},
-                    size:{w:400,h:300},
+                    position:{x:100,y:200},
+                    size:{w:50,h:50},
+                    type:2
                 },
                 {
-                    position:{x:0,y:300},
-                    size:{w:400,h:300},
-                },
-                {
-                    position:{x:400,y:300},
-                    size:{w:400,h:300},
+                    position:{x:200,y:300},
+                    size:{w:50,h:50},
+                    type:1
                 }
             ]
         },
@@ -28,6 +30,8 @@ export default {
             width:800,
             height:600,
             status:0,
+            Monsters:[],
+            Obstacles:[],
             Sections:[
                 {
                     position:{x:0,y:0},
@@ -49,6 +53,7 @@ export default {
         }
     ],
     Hero:{
+        type:1,
         position:{x:0,y:0},
         size:{w:50,h:50},
         img:"./src/images/hero.png"

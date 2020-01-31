@@ -7,3 +7,4 @@ window._padding = 9;
 let _game = new Game($("#div1"),gameConfig);
 _game.init();
 
+window.game = _game;

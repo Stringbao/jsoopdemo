@@ -5,6 +5,7 @@ export default class Section{
         this._index = -1;
 
         this._obstacles = [];
+        this._monster = [];
 
         this._position = {x:0,y:0};
 
@@ -24,5 +25,13 @@ export default class Section{
         this._parent = scene;
         this._position = pos;
         this._size = size;
+    }
+
+    addObstacle(obstacle){
+        this._obstacles.push(obstacle);
+    }
+
+    addMonster(monster){
+        this._monster.push(monster)
     }
 }

@@ -1,11 +1,15 @@
 import CObject from "@CObject";
+import Enums from "@Enums";
+import tool from "@Tool";
 
 export default class Hero extends CObject {
     constructor(){
         super();
-        this._type = 1;
+        this._type = Enums.types.hero;
         this._config = null;
         this._el = $("<div style='position: absolute;'></div>");
+
+        this._currentScetion = -1;
     }
 
     move(){
@@ -33,5 +37,9 @@ export default class Hero extends CObject {
         this._size = this._config.size;
         this._position = this._config.position;
         this._bgImage = this._config.img
+    }
+
+    checkSection(sections){
+        
     }
 }
