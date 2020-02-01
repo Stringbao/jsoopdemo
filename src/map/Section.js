@@ -1,3 +1,4 @@
+import tool from "@Tool";
 export default class Section{
     constructor(){
         this._parent = null;
@@ -5,7 +6,7 @@ export default class Section{
         this._index = -1;
 
         this._obstacles = [];
-        this._monster = [];
+        this._monsters = [];
 
         this._position = {x:0,y:0};
 
@@ -28,10 +29,14 @@ export default class Section{
     }
 
     addObstacle(obstacle){
-        this._obstacles.push(obstacle);
+        if(!tool.checkItemExist(obstacle,this._obstacles)){
+            this._obstacles.push(obstacle);
+        }
     }
 
     addMonster(monster){
-        this._monster.push(monster)
+        if(!tool.checkItemExist(monster,this._monsters)){
+            this._monsters.push(monster);
+        }
     }
 }

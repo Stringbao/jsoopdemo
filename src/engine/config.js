@@ -12,17 +12,20 @@ export default {
                 {
                     position:{x:100,y:100},
                     size:{w:50,h:50},
-                    type:1
+                    type:1,
+                    img:"./src/images/Tree50.png"
                 },
                 {
                     position:{x:100,y:200},
                     size:{w:50,h:50},
-                    type:2
+                    type:2,
+                    img:"./src/images/Stone50.png"
                 },
                 {
                     position:{x:200,y:300},
                     size:{w:50,h:50},
-                    type:1
+                    type:1,
+                    img:"./src/images/Tree50.png"
                 }
             ]
         },
@@ -31,25 +34,7 @@ export default {
             height:600,
             status:0,
             Monsters:[],
-            Obstacles:[],
-            Sections:[
-                {
-                    position:{x:0,y:0},
-                    size:{w:400,h:300},
-                },
-                {
-                    position:{x:400,y:0},
-                    size:{w:400,h:300},
-                },
-                {
-                    position:{x:0,y:300},
-                    size:{w:400,h:300},
-                },
-                {
-                    position:{x:400,y:300},
-                    size:{w:400,h:300},
-                }
-            ]
+            Obstacles:[]
         }
     ],
     Hero:{

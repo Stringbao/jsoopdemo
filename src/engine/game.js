@@ -57,8 +57,7 @@ export default class Game{
         if(this._currentScenes){
             this._hero.init(this._config.Hero);
             this._hero.appendToParent(this._el);
-            //检测hero在哪个section
-            this._hero.checkSection(this._currentScenes._sections);
+            this._hero.regMoveEvent(this._currentScenes._sections);
         }
     }
 

@@ -93,7 +93,6 @@ export default class Scene{
             _instance.init();
             _instance.appendToParent(this._el);
             this._obstacles.push(_instance);
-            
         })
     }
 
@@ -112,11 +111,9 @@ export default class Scene{
     groupItemsInSection(data){
         if(data.length >0){
             let _type = data[0]._type;
-            this._obstacles.forEach(item=>{
-                let _pos = item._position;
-                let _size = item._size;
-                let centerPoint = {x:_pos.x + parseFloat(_size.w/2),y:_pos.y + parseFloat(_size.h/2)};
-
+            let _arr = _type == Enums.types.obstacle?this._obstacles:this._monsters;
+            _arr.forEach(item=>{
+                let centerPoint = tool.point.getCenterPoint(item._position,item._size)
                 tool.point.checkCenterPointInSections(centerPoint,this._sections).then(section=>{
                     if(_type == Enums.types.obstacle){
                         section.addObstacle(item);
@@ -125,6 +122,19 @@ export default class Scene{
                         section.addMonster(item);
                     }
                 })
+            })
+        }
+    }
+
+    /**
+     * @description 边界交集的Obstacle和Monster
+     */
+    groupBoundaryInSection(data){
+        if(data.length >0){
+            let _type = data[0]._type;
+            let _arr = _type == Enums.types.obstacle?this._obstacles:this._monsters;
+            _arr.forEach(item=>{
+                
             })
         }
     }

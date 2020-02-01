@@ -1,14 +1,15 @@
+
 import CObject from "@CObject";
 import Enums from "@Enums";
 import tool from "@Tool";
 
-export default class CObstacle extends CObject{
+export default class CMonster extends CObject{
 
     constructor(config){
         super();
-        this._type = Enums.types.obstacle;
+        this._type = Enums.types.monster;
         this._config = config;
-        this._el = $("<div style='position: absolute;border:1px solid yellow'></div>");
+        this._el = $("<div style='position: absolute;border:1px solid blue'></div>");
         this._id = tool.idBuilder.newId();
     }
 

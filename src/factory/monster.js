@@ -1,15 +1,16 @@
 
 
-import Monster from "../model/Monster.js";
+import Person from "../monster/Person.js";
+import Devil from "../monster/Devil.js";
 import Enums from "@Enums";
 
 let MonsterFactory = {
     outInstance(config){
-        if(config.type == Enums.Monster.car){
-            return new Monster(config);
+        if(config.type == Enums.Monster.subType.devil){
+            return new Devil(config);
         }
-        if(config.type == Enums.Monster.glass){
-            return new Monster(config);
+        if(config.type == Enums.Monster.subType.person){
+            return new Person(config);
         }
     }
 }
