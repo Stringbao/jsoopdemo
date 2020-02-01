@@ -17,8 +17,4 @@ export default class Person extends CMonster {
          */
         this._status = -1;
     }
-
-    init(){
-        
-    }
 }

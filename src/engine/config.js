@@ -6,7 +6,18 @@ export default {
             height:600,
             status:1,
             Monsters:[
-
+                {
+                    position:{x:400,y:200},
+                    size:{w:50,h:50},
+                    type:1,
+                    img:"./src/images/devil.png"
+                },
+                {
+                    position:{x:450,y:400},
+                    size:{w:50,h:50},
+                    type:2,
+                    img:"./src/images/person.png"
+                },
             ],
             Obstacles:[
                 {
