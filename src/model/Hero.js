@@ -149,8 +149,12 @@ export default class Hero extends CObject {
     }
 
     reloadHeroPosition(parent){
-        this._position = {x:window._padding,y:window._padding};
-        this.appendToParent(parent)
+        this._position = {x:0,y:0};
+        this.appendToParent(parent);
+    }
+
+    setCurrentScene(scene){
+        this._currentScene = scene;
     }
 
     init(config){
@@ -166,7 +170,7 @@ export default class Hero extends CObject {
     }
 
     regMoveEvent(scene){
-        this._currentScene = scene;
+        this.setCurrentScene(scene);
         $(document).on("keydown",(e)=>{
             if(e.keyCode == Enums.hero.direction.top || e.keyCode == Enums.hero.direction.down || 
                 e.keyCode == Enums.hero.direction.left || e.keyCode == Enums.hero.direction.right){

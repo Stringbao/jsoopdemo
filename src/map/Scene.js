@@ -68,9 +68,7 @@ export default class Scene{
     }
 
     init(config){
-        if(config){
-            this._config = config;
-        }
+        this._config = config;
         this._id = this._config.id;
         this._size = {w:this._config.width,h:this._config.height};
         this._status = this._config.status;

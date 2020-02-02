@@ -14,7 +14,7 @@ export default class Game{
         this._scenes = [];
 
         this._currentScenes = null;
-        this._currentScenesConfig = {config:null,idx:-1};
+        this._currentScenesConfig = null;
         
         this._config = config;
     }
@@ -24,16 +24,14 @@ export default class Game{
     }
 
     goToScene(sid){
-        
         this._currentScenes._status = Enums.Scene.disenabled;
-
         let scene = this.getSneneById(sid);
         scene.appendToParent(this._el);
-        scene.init();
         this._currentScenes = scene;
         this._currentScenes._status = Enums.Scene.enabled;
 
         this._hero.reloadHeroPosition(this._el);
+        this._hero.setCurrentScene(scene);
     }
     
     init(){
@@ -41,7 +39,7 @@ export default class Game{
         //加载当前场景，异步加载其他场景的配置信息
         this._config.Scenes.forEach((x,idx) => {
             if(x.status == Enums.Scene.enabled){
-                this._currentScenesConfig = {config:x,idx:idx};
+                this._currentScenesConfig = x;
             }
         });
         this.asynLoadScenes();
@@ -59,10 +57,10 @@ export default class Game{
     }
 
     asynLoadScenes(){
-        if(this._currentScenesConfig.config){
+        if(this._currentScenesConfig){
             new Promise((resolve,reject)=>{
                 let _scene = new Scene();
-                _scene.init(this._currentScenesConfig.config,this._currentScenesConfig.idx);
+                _scene.init(this._currentScenesConfig);
                 this.addScene(_scene);
                 _scene.appendToParent(this._el);
                 this._currentScenes = _scene;
@@ -71,7 +69,7 @@ export default class Game{
                 this._config.Scenes.forEach((x,idx) => {
                     if(x.status == Enums.Scene.disenabled){
                         let _scene = new Scene();
-                        _scene.init(x, idx);
+                        _scene.init(x);
                         this.addScene(_scene);
                     }
                 });

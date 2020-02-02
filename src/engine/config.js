@@ -42,7 +42,7 @@ export default {
             ],
             doorway:{
                 go:"2",
-                position:{x:750,y:550},
+                position:{x:50,y:0},
                 img:"./src/images/doorway.png"
             }
         },
@@ -69,7 +69,8 @@ export default {
             ],
             doorway:{
                 go:"1",
-                position:{x:750,y:550},
+                // position:{x:750,y:550},
+                position:{x:50,y:0},
                 img:"./src/images/doorway.png"
             }
         }
