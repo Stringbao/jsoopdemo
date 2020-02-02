@@ -8,7 +8,8 @@ export default {
     types:{
         hero:1,
         obstacle:2,
-        monster:3
+        monster:3,
+        doorway:4
     },
     Obstacle:{
         subType:{
@@ -41,5 +42,8 @@ export default {
             "move":1,
             "fight":2
         }
+    },
+    doorway:{
+        enevtKey:"Doorway"
     }
 }

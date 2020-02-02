@@ -2,6 +2,7 @@
 import Hero from "../model/Hero.js";
 import Scene from "../map/Scene.js";
 import Enums from "@Enums";
+import tool from "@Tool";
 
 export default class Game{
     constructor(container, config){
@@ -22,29 +23,21 @@ export default class Game{
         this._scenes.push(scene);
     }
 
-    goNextScene(){
-        let idx = this._currentScenes._index;
-        if(idx == this._scenes.length-1){
-            return;
-        }
-        let nextScene = this._scenes[idx+1];
-        nextScene.appendToParent(this._el);
-        this._currentScenes = nextScene;
-        this._hero.setToOriginPoint();
-    }
+    goToScene(sid){
+        
+        this._currentScenes._status = Enums.Scene.disenabled;
 
-    goPrevScene(){
-        let idx = this._currentScenes._index;
-        if(idx == 0){
-            return;
-        }
-        let prevScene = this._scenes[idx-1];
-        prevScene.appendToParent(this._el);
-        this._currentScenes = prevScene;
-        this._hero.setToOriginPoint();
+        let scene = this.getSneneById(sid);
+        scene.appendToParent(this._el);
+        scene.init();
+        this._currentScenes = scene;
+        this._currentScenes._status = Enums.Scene.enabled;
+
+        this._hero.reloadHeroPosition(this._el);
     }
     
     init(){
+        let that = this;
         //加载当前场景，异步加载其他场景的配置信息
         this._config.Scenes.forEach((x,idx) => {
             if(x.status == Enums.Scene.enabled){
@@ -57,8 +50,12 @@ export default class Game{
         if(this._currentScenes){
             this._hero.init(this._config.Hero);
             this._hero.appendToParent(this._el);
-            this._hero.regMoveEvent(this._currentScenes._sections);
+            this._hero.regMoveEvent(this._currentScenes);
         }
+
+        tool.eventPublisher.on(Enums.doorway.enevtKey,(data)=>{
+            that.goToScene(data.sid);
+        })
     }
 
     asynLoadScenes(){
@@ -82,6 +79,16 @@ export default class Game{
         }else{
             console.log("场景信息异常");
         }
+    }
+
+    getSneneById(id){
+        let res = null;
+        this._scenes.forEach(x=>{
+            if(id == x._id){
+                res = x;
+            }
+        })
+        return res;
     }
 
     start(){

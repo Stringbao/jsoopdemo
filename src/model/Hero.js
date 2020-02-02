@@ -13,6 +13,8 @@ export default class Hero extends CObject {
 
         this._currentSection = null;
 
+        this._currentScene = null;
+
         /**
          * @description 行走的方向
          * "top":38,
@@ -82,22 +84,23 @@ export default class Hero extends CObject {
         return res;
     }
 
-    move(sections){
+    move(){
         if(this._status != Enums.hero.status.ready){
             return;
         }
         this._status = Enums.hero.status.move;
-        this.checkSection(sections).then(x=>{
+        this.checkSection(this._currentScene._sections).then(x=>{
             this._currentSection = x;
             let boundaryCheckResult = this.boundaryCheck();
             if(boundaryCheckResult.flag){
                 let tmpCenterPoint =  tool.point.getCenterPoint(boundaryCheckResult.newPos,this._size);
-                //Section 碰撞检测
-                if(this.hitTest(tmpCenterPoint)){
+                //Section 障碍物碰撞检测
+                if(this.hitObstaclesTest(tmpCenterPoint)){
                     this._position = boundaryCheckResult.newPos;
                     this.updatePos();
+                    this.checkDoorway();
                     //更新_currentSection
-                    this.checkSection(sections).then(next=>{
+                    this.checkSection(this._currentScene._sections).then(next=>{
                         this._currentSection = next;
                         console.log("current section idx is " + this._currentSection._index);
                     })
@@ -108,14 +111,26 @@ export default class Hero extends CObject {
             debugger
         })
     }
+    
+    checkDoorway(){
+        let centerPoint = tool.point.getCenterPoint(this._position,this._size);
+        if(tool.point.checkCenterPointInOther(centerPoint,this._currentScene._doorway)){
+            tool.eventPublisher.broadcast(Enums.doorway.enevtKey,{sid:this._currentScene._doorway._go});
+        }
+    }
 
-    hitTest(centerPoint){
+    hitObstaclesTest(centerPoint){
         let res = true;
         this._currentSection._obstacles.forEach(x => {
             if(tool.point.checkCenterPointInOther(centerPoint, x)){
                 res = false;
             }
         });
+        // this._currentSection._monsters.forEach(x => {
+        //     if(tool.point.checkCenterPointInOther(centerPoint, x)){
+        //         res = false;
+        //     }
+        // });
         return res;
     }
 
@@ -133,9 +148,9 @@ export default class Hero extends CObject {
         $(parent).append(this._el);
     }
 
-    setToOriginPoint(){
+    reloadHeroPosition(parent){
         this._position = {x:window._padding,y:window._padding};
-        this._el.css("top",this._position.y + window._padding).css("left",this._position.x + window._padding);
+        this.appendToParent(parent)
     }
 
     init(config){
@@ -150,12 +165,13 @@ export default class Hero extends CObject {
         return tool.point.checkCenterPointInSections(centerPoint,sections);
     }
 
-    regMoveEvent(sections){
+    regMoveEvent(scene){
+        this._currentScene = scene;
         $(document).on("keydown",(e)=>{
             if(e.keyCode == Enums.hero.direction.top || e.keyCode == Enums.hero.direction.down || 
                 e.keyCode == Enums.hero.direction.left || e.keyCode == Enums.hero.direction.right){
                     this._direction = e.keyCode;
-                    this.move(sections);
+                    this.move();
                 }
             
         })

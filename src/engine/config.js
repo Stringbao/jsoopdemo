@@ -2,6 +2,7 @@
 export default {
     Scenes:[
         {
+            id:"1",
             width:800,
             height:600,
             status:1,
@@ -38,14 +39,39 @@ export default {
                     type:1,
                     img:"./src/images/Tree50.png"
                 }
-            ]
+            ],
+            doorway:{
+                go:"2",
+                position:{x:750,y:550},
+                img:"./src/images/doorway.png"
+            }
         },
         {
+            id:"2",
             width:800,
             height:600,
             status:0,
-            Monsters:[],
-            Obstacles:[]
+            Monsters:[
+                {
+                    position:{x:300,y:300},
+                    size:{w:50,h:50},
+                    type:1,
+                    img:"./src/images/devil.png"
+                },
+            ],
+            Obstacles:[
+                {
+                    position:{x:250,y:450},
+                    size:{w:50,h:50},
+                    type:1,
+                    img:"./src/images/Tree50.png"
+                }
+            ],
+            doorway:{
+                go:"1",
+                position:{x:750,y:550},
+                img:"./src/images/doorway.png"
+            }
         }
     ],
     Hero:{
