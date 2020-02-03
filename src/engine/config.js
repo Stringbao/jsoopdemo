@@ -23,9 +23,9 @@ export default {
             Obstacles:[
                 {
                     position:{x:100,y:100},
-                    size:{w:50,h:50},
+                    size:{w:100,h:100},
                     type:1,
-                    img:"./src/images/Tree50.png"
+                    img:"./src/images/Tree100.png"
                 },
                 {
                     position:{x:100,y:200},
