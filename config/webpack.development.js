@@ -30,7 +30,7 @@ module.exports = {
         port: "9991",
         proxy: {
             '/accountAPI': {
-                target: 'https://account.nec.lenovouat.cn',
+                target: '',
                 // pathRewrite: {
                 //     "^/accountAPI": ""
                 // },
